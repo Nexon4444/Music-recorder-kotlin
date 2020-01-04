@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "260113639554",
+    "firebase_url": "https://musicrecorder-mk.firebaseio.com",
+    "project_id": "musicrecorder-mk",
+    "storage_bucket": "musicrecorder-mk.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:260113639554:android:0e1eb6d68a88df20c56c9b",
+        "android_client_info": {
+          "package_name": "com.android.musicrecorder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "260113639554-s58q5ci2clblc2h7qggnnp92t22a5s34.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJv6E0QzCFQknUigRzB0h1O6NISSUAMdo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "260113639554-s58q5ci2clblc2h7qggnnp92t22a5s34.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
