@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.android.synthetic.main.sign_in_activity.*
 
 class SignUpActivity : AppCompatActivity() {
     lateinit var email: EditText
@@ -29,10 +30,9 @@ class SignUpActivity : AppCompatActivity() {
         password = findViewById(R.id.editTextPasswdId)
         tvSignIn = findViewById(R.id.noAccountTextViewId)
         signUpBtn = findViewById(R.id.signUpBtnId)
-        signUpBtn.setOnClickListener(View.OnClickListener {
+        signUpBtn.setOnClickListener {
             val emailString: String = email.text.toString().trim()
             val passwordString: String = password.text.toString()
-            email
             if (email.text.isEmpty()) {
                 email.setText("Enter Email!")
                 email.requestFocus()
@@ -40,7 +40,7 @@ class SignUpActivity : AppCompatActivity() {
                 password.setText("Enter password")
                 password.requestFocus()
             } else if (password.text.isEmpty() and email.text.isEmpty()) {
-                Toast.makeText(this@SignUpActivity, "Fields are empty!", Toast.LENGTH_SHORT)
+                Toast.makeText(this@SignUpActivity, "Fields are empty!", Toast.LENGTH_SHORT).show()
             } else if (!password.text.isEmpty() and !email.text.isEmpty()) {
                 firebaseAuth
                     .createUserWithEmailAndPassword(emailString, passwordString)
@@ -50,7 +50,7 @@ class SignUpActivity : AppCompatActivity() {
                                 this@SignUpActivity,
                                 "Registration succesfull!!",
                                 Toast.LENGTH_SHORT
-                            )
+                            ).show()
                             val intent = Intent(this, MainActivity::class.java)
                             startActivity(intent)
                         } else {
@@ -58,7 +58,7 @@ class SignUpActivity : AppCompatActivity() {
                                 this@SignUpActivity,
                                 "Registration unsuccesfull, please try again",
                                 Toast.LENGTH_SHORT
-                            )
+                            ).show()
 
                         }
                     })
@@ -68,14 +68,15 @@ class SignUpActivity : AppCompatActivity() {
                     this@SignUpActivity,
                     "ERROR",
                     Toast.LENGTH_SHORT
-                )
+                ).show()
             }
 
-        })
-        tvSignIn.setOnClickListener { view ->
+        }
+        noAccountTextViewId.setOnClickListener{ view ->
             val intent = Intent(this, SignInActivity::class.java)
             startActivity(intent)
         }
+//        tvSignIn.setOnClickListener
 
     }
 }

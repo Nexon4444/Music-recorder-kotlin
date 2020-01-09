@@ -11,6 +11,8 @@ import android.widget.Toast
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import kotlinx.android.synthetic.main.sign_in_activity.*
+import kotlinx.android.synthetic.main.sign_up_activity.*
 
 class SignInActivity : AppCompatActivity() {
     //    lateinit var emailId : EditText
@@ -34,9 +36,6 @@ class SignInActivity : AppCompatActivity() {
         firebaseAuth = FirebaseAuth.getInstance()
         email = findViewById(R.id.editTextEmailId)
         password = findViewById(R.id.editTextPasswdId)
-        val tvSignIn = findViewById<TextView>(R.id.alreadyHaveAccountTextViewId)
-        val tv = findViewById<TextView>(R.id.noAccountTextViewId)
-        tvSignUp = findViewById(R.id.noAccountTextViewId)
         signInBtn = findViewById(R.id.signInBtnId)
 
         val authStateListener = FirebaseAuth.AuthStateListener {
@@ -45,55 +44,65 @@ class SignInActivity : AppCompatActivity() {
                 Toast.makeText(this@SignInActivity, "You are logged in", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, MainActivity::class.java)
             } else {
-                Toast.makeText(this@SignInActivity, "Please Login", Toast.LENGTH_SHORT)
+                Toast.makeText(this@SignInActivity, "Please Login", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        signInBtn.setOnClickListener {
+            val emailString: String = email.text.toString().trim()
+            val passwordString: String = password.text.toString()
+
+            if (email.text.isEmpty()) {
+                Toast.makeText(
+                    this@SignInActivity
+                    , "Enter Email!", Toast.LENGTH_SHORT
+                ).show()
+                email.requestFocus()
+            } else if (password.text.isEmpty()) {
+                Toast.makeText(
+                    this@SignInActivity
+                    , "Enter Password!", Toast.LENGTH_SHORT
+                ).show()
+                password.requestFocus()
+            } else if (password.text.isEmpty() and email.text.isEmpty()) {
+                Toast.makeText(
+                    this@SignInActivity
+                    , "Fields are empty!", Toast.LENGTH_SHORT
+                ).show()
+            } else if (!password.text.isEmpty() and !email.text.isEmpty()) {
+                firebaseAuth
+                    .signInWithEmailAndPassword(emailString, passwordString)
+                    .addOnCompleteListener(this@SignInActivity) { task ->
+                        if (task.isSuccessful) {
+                            val intToHome =
+                                Intent(this@SignInActivity, MainActivity::class.java)
+                            startActivity(intToHome)
+                        } else {
+                            Toast.makeText(
+                                this@SignInActivity,
+                                "Login Unsuccessfull",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+
+            } else {
+                Toast.makeText(
+                    this@SignInActivity,
+                    "ERROR",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
 
-            signInBtn.setOnClickListener {
-                val emailString: String = email.text.toString().trim()
-                val passwordString: String = password.text.toString()
-                email
-                if (email.text.isEmpty()) {
-                    email.setText("Enter Email!")
-                    email.requestFocus()
-                } else if (password.text.isEmpty()) {
-                    password.setText("Enter password")
-                    password.requestFocus()
-                } else if (password.text.isEmpty() and email.text.isEmpty()) {
-                    Toast.makeText(this@SignInActivity
-                        , "Fields are empty!", Toast.LENGTH_SHORT)
-                } else if (!password.text.isEmpty() and !email.text.isEmpty()) {
-                    firebaseAuth
-                        .signInWithEmailAndPassword(emailString, passwordString)
-                        .addOnCompleteListener(this@SignInActivity, OnCompleteListener {
-                        task ->
-                            if (task.isSuccessful) {
-                                val intToHome = Intent(this@SignInActivity, MainActivity::class.java)
-                                startActivity(intToHome)
-                            } else {
-                                Toast.makeText(
-                                    this@SignInActivity,
-                                    "Login Unsuccessfull",
-                                    Toast.LENGTH_SHORT
-                                )
-                            }
-                    })
 
-                } else {
-                    Toast.makeText(
-                        this@SignInActivity,
-                        "ERROR",
-                        Toast.LENGTH_SHORT
-                    )
-                }
-
-            }
-            tvSignUp.setOnClickListener { view ->
-                val intent = Intent(this, SignInActivity::class.java)
+            alreadyHaveAccount.setOnClickListener { view ->
+                val intent = Intent(this, SignUpActivity::class.java)
                 startActivity(intent)
             }
 
-        }
 
+        }
+        firebaseAuth.addAuthStateListener { authStateListener }
 //    public override fun onStart() {
 //        super.onStart()
 //        // Check if user is signed in (non-null) and update UI accordingly.
