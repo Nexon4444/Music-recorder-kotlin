@@ -9,7 +9,7 @@ class RecordActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_record)
+        setContentView(R.layout.record_activity)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -20,3 +20,4 @@ class RecordActivity : AppCompatActivity() {
         return true
     }
 }
+//https://www.youtube.com/watch?v=-eFoX4K59qM
