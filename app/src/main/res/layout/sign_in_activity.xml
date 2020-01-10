@@ -23,7 +23,7 @@
         android:id="@+id/editTextEmailId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="352dp"
+        android:layout_marginTop="200dp"
         android:ems="10"
         android:hint="Email"
         android:inputType="textPersonName"
@@ -46,14 +46,11 @@
         android:id="@+id/noAccountTextViewId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="164dp"
-        android:layout_marginBottom="108dp"
         android:text="Don't have an account? Click here"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/signInBtnId"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.22" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -47,6 +47,10 @@ class SignInActivity : AppCompatActivity() {
                 Toast.makeText(this@SignInActivity, "Please Login", Toast.LENGTH_SHORT).show()
             }
         }
+        noAccountTextViewId.setOnClickListener { view ->
+            val intent = Intent(this, SignUpActivity::class.java)
+            startActivity(intent)
+        }
 
         signInBtn.setOnClickListener {
             val emailString: String = email.text.toString().trim()
@@ -95,10 +99,6 @@ class SignInActivity : AppCompatActivity() {
             }
 
 
-            alreadyHaveAccount.setOnClickListener { view ->
-                val intent = Intent(this, SignUpActivity::class.java)
-                startActivity(intent)
-            }
 
 
         }

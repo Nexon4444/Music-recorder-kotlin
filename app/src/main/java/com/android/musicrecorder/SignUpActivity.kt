@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.sign_in_activity.*
+import kotlinx.android.synthetic.main.sign_up_activity.*
 
 class SignUpActivity : AppCompatActivity() {
     lateinit var email: EditText
@@ -28,8 +29,13 @@ class SignUpActivity : AppCompatActivity() {
         firebaseAuth = FirebaseAuth.getInstance()
         email = findViewById(R.id.editTextEmailId)
         password = findViewById(R.id.editTextPasswdId)
-        tvSignIn = findViewById(R.id.noAccountTextViewId)
+
         signUpBtn = findViewById(R.id.signUpBtnId)
+        alreadyHaveAccount.setOnClickListener { view ->
+            val intent = Intent(this, SignInActivity::class.java)
+            startActivity(intent)
+        }
+
         signUpBtn.setOnClickListener {
             val emailString: String = email.text.toString().trim()
             val passwordString: String = password.text.toString()
@@ -44,7 +50,7 @@ class SignUpActivity : AppCompatActivity() {
             } else if (!password.text.isEmpty() and !email.text.isEmpty()) {
                 firebaseAuth
                     .createUserWithEmailAndPassword(emailString, passwordString)
-                    .addOnCompleteListener(this@SignUpActivity, OnCompleteListener { task ->
+                    .addOnCompleteListener(this@SignUpActivity) { task ->
                         if (task.isSuccessful) {
                             Toast.makeText(
                                 this@SignUpActivity,
@@ -61,7 +67,7 @@ class SignUpActivity : AppCompatActivity() {
                             ).show()
 
                         }
-                    })
+                    }
 
             } else {
                 Toast.makeText(
@@ -71,10 +77,7 @@ class SignUpActivity : AppCompatActivity() {
                 ).show()
             }
 
-        }
-        noAccountTextViewId.setOnClickListener{ view ->
-            val intent = Intent(this, SignInActivity::class.java)
-            startActivity(intent)
+
         }
 //        tvSignIn.setOnClickListener
 
