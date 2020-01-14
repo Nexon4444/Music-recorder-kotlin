@@ -27,22 +27,27 @@ class RecordActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.record_activity)
         playButtonId.setEnabled(true)
+
         if (checkPermissionFromDevice()) {
+            toggleButtonRecordId.setOnCheckedChangeListener { buttonView, isChecked ->
+                Toast.makeText(this@RecordActivity, isChecked.toString(), Toast.LENGTH_SHORT).show()
+            }
             toggleButtonRecordId.setOnClickListener { view ->
-                if (!recordingNow){
+                Toast.makeText(this@RecordActivity, "recording now", Toast.LENGTH_SHORT).show()
+                if (!recordingNow) {
                     recordingNow = true
                     toggleButtonRecordId.isEnabled
-                savePath =
-                    Environment.getExternalStorageDirectory().absolutePath + "/" + UUID.randomUUID().toString() + "_audio_record.3gp"
-                try {
-                    mediaRecorder.prepare()
-                    mediaRecorder.start()
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
-                stopButtonId.setEnabled(true)
-                Toast.makeText(this@RecordActivity, "Recording...", Toast.LENGTH_SHORT).show()}
-                else{
+                    savePath =
+                        Environment.getExternalStorageDirectory().absolutePath + "/" + UUID.randomUUID().toString() + "_audio_record.3gp"
+                    try {
+                        mediaRecorder.prepare()
+                        mediaRecorder.start()
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                    stopButtonId.setEnabled(true)
+                    Toast.makeText(this@RecordActivity, "Recording...", Toast.LENGTH_SHORT).show()
+                } else {
                     recordingNow = false
                     mediaRecorder.stop()
                     stopButtonId.setEnabled(false)
@@ -50,12 +55,12 @@ class RecordActivity : AppCompatActivity() {
                 }
             }
 
-            playButtonId.setOnClickListener{view ->
+            playButtonId.setOnClickListener { view ->
                 mediaPlayer.setDataSource(savePath)
                 mediaPlayer.prepare()
                 mediaPlayer.start()
 
-                Toast.makeText(this@RecordActivity, "Playing...", Toast.LENGTH_SHORT)
+                Toast.makeText(this@RecordActivity, "Playing...", Toast.LENGTH_SHORT).show()
             }
         } else {
             requestPermission()
@@ -110,6 +115,7 @@ class RecordActivity : AppCompatActivity() {
             this@RecordActivity,
             android.Manifest.permission.RECORD_AUDIO
         )
+        val ok = PackageManager.PERMISSION_GRANTED
         return (writeExternalStorageResult == PackageManager.PERMISSION_GRANTED) and
                 (recordAudioResult == PackageManager.PERMISSION_GRANTED)
     }
