@@ -22,9 +22,11 @@ class RecordActivity : AppCompatActivity() {
     val mediaPlayer = MediaPlayer()
     val REQUEST_PERMISSION_CODE = 1
     var recordingNow = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.record_activity)
+        playButtonId.setEnabled(true)
         if (checkPermissionFromDevice()) {
             toggleButtonRecordId.setOnClickListener { view ->
                 if (!recordingNow){
@@ -46,14 +48,13 @@ class RecordActivity : AppCompatActivity() {
                     stopButtonId.setEnabled(false)
                     playButtonId.setEnabled(true)
                 }
-
-
             }
 
             playButtonId.setOnClickListener{view ->
                 mediaPlayer.setDataSource(savePath)
                 mediaPlayer.prepare()
                 mediaPlayer.start()
+
                 Toast.makeText(this@RecordActivity, "Playing...", Toast.LENGTH_SHORT)
             }
         } else {

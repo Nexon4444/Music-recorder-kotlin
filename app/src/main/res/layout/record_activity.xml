@@ -6,41 +6,45 @@
     android:layout_height="match_parent"
     tools:context=".RecordActivity">
 
-
     <ToggleButton
         android:id="@+id/toggleButtonRecordId"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:background="@drawable/ic_record_button"
+        android:background="@drawable/ic_toggleable_record_button"
         android:text=""
         android:textOff=""
         android:textOn=""
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.554"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.804" />
 
-    <Button
+    <ImageButton
         android:id="@+id/stopButtonId"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@drawable/ic_stop"
         android:text="Button"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/toggleButtonRecordId"
-        app:layout_constraintHorizontal_bias="0.831"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="548dp" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.804" />
 
-    <Button
+    <ImageButton
         android:id="@+id/playButtonId"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:background="@drawable/ic_play"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/ic_state_play"
         android:text=""
-        tools:layout_editor_absoluteX="267dp"
-        tools:layout_editor_absoluteY="530dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.541"
+        app:layout_constraintStart_toEndOf="@+id/toggleButtonRecordId"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.804" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
