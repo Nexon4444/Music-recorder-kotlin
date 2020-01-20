@@ -1,5 +1,6 @@
 package com.android.musicrecorder
 
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.media.MediaPlayer
 import android.media.MediaRecorder
@@ -8,6 +9,7 @@ import android.os.Bundle
 import android.os.Environment
 import android.view.Menu
 import android.view.MenuInflater
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -17,17 +19,48 @@ import java.io.File
 import java.util.*
 
 
-class RecordActivity : AppCompatActivity() {
+class RecordActivity : AppCompatActivityWithMenu
+    () {
     var savePath = ""
     val mediaRecorder = MediaRecorder()
     val mediaPlayer = MediaPlayer()
     val REQUEST_PERMISSION_CODE = 1
     var recordingNow = false
-
+//
+//    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+//        val inflater = MenuInflater(this@RecordActivity)
+//        invalidateOptionsMenu()
+//        inflater.inflate(R.menu.app_menu, menu)
+//
+//        return true
+//    }
+//
+//    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+//        when (item?.itemId) {
+//
+//            R.id.recordId -> {
+//                val intent = Intent(this, RecordActivity::class.java)
+//                startActivity(intent)
+//            }
+//
+//            R.id.editId -> {
+//                val intent = Intent(this, EditActivity::class.java)
+//                startActivity(intent)
+//            }
+//
+//            R.id.playId -> {
+//                val intent = Intent(this, PlayActivity::class.java)
+//                startActivity(intent)
+//            }
+//        }
+//        return true
+//
+//    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.record_activity)
         playButtonId.setEnabled(false)
+        invalidateOptionsMenu()
 
         while (!checkPermissionFromDevice()) {
             requestPermission()
@@ -133,12 +166,7 @@ class RecordActivity : AppCompatActivity() {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        val inflater = MenuInflater(this@RecordActivity)
-        invalidateOptionsMenu()
-        inflater.inflate(R.menu.app_menu, menu)
-        return true
-    }
+
 
     fun checkPermissionFromDevice(): Boolean {
         val writeExternalStorageResult = ContextCompat.checkSelfPermission(
