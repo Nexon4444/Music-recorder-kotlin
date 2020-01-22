@@ -24,8 +24,8 @@ open class AppCompatActivityWithMenu : AppCompatActivity() {
                 startActivity(intent)
             }
 
-            R.id.editId -> {
-                val intent = Intent(this, EditActivity::class.java)
+            R.id.logout -> {
+                val intent = Intent(this, SignInActivity::class.java)
                 startActivity(intent)
             }
 

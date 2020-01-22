@@ -10,8 +10,12 @@ import android.os.Environment
 import android.widget.ArrayAdapter
 import android.widget.SeekBar
 import android.widget.Toast
+import com.google.firebase.FirebaseApp
+import com.google.firebase.FirebaseOptions
 import kotlinx.android.synthetic.main.activity_play.*
 import java.io.File
+import java.io.FileInputStream
+import kotlin.concurrent.thread
 
 
 class PlayActivity : AppCompatActivityWithMenu(), Runnable {
@@ -53,7 +57,20 @@ class PlayActivity : AppCompatActivityWithMenu(), Runnable {
         }
         root = File(Environment.getExternalStorageDirectory().absolutePath)
         currFolder = root
-//        val filesinfolder: ArrayList<String> = getFiles("/sdcard/Download")
+//        val runnable = SimpleRunnable()
+        val thread1 = Thread{run()}
+        thread1.start()
+
+//        val serviceAccount = FileInputStream("path/to/serviceAccountKey.json")
+
+//        val options: FirebaseOptions = FirebaseOptions.Builder()
+//            .setCredentials(GoogleCredentials.fromStream(serviceAccount))
+//            .setDatabaseUrl("https://musicrecorder-mk.firebaseio.com")
+//            .build()
+
+//        FirebaseApp.initializeApp(options)
+
+
     }
 
     override fun onCreateDialog(id: Int): Dialog? {
@@ -62,115 +79,19 @@ class PlayActivity : AppCompatActivityWithMenu(), Runnable {
         when (id) {
 
             CUSTOM_DIALOG_ID -> {
-
+                mediaPlayer.reset()
                 var fileExplorerDialog = FileExplorerDialog()
                 fileExplorerDialog.run {
                     show(supportFragmentManager, "example dialog")
                 }
                 return null
-//                dialogList.setOnClickListener {
-//                    root = File(Environment.getExternalStorageDirectory().absolutePath)
-//                    currFolder = root
-//                }
-//                dialog = Dialog(this@PlayActivity)
-//                dialog.setTitle("Custom Dialog")
-//                dialog.setCancelable(true)
-//                dialog.setCanceledOnTouchOutside(true)
-//
-//                upButton.setOnClickListener {
-//
-//                    ListDir(currFolder.parentFile)
-//                }
-//
-//                dialogList.setOnItemClickListener { adapterView, view, position, l ->
-//                    run {
-//                        var selected = File(fileList.get(position))
-//                        if (selected.isDirectory()) {
-//                            ListDir(selected)
-//                        } else {
-//                            Toast.makeText(
-//                                this@PlayActivity, selected.toString() + " selected",
-//                                Toast.LENGTH_SHORT
-//                            ).show()
-//                            dismissDialog(CUSTOM_DIALOG_ID)
-//                        }
-//                    }
-//                }
+
             }
         }
         return dialog
     }
 
-//    override fun onPrepareDialog(id: Int, dialog: Dialog?) {
-//        super.onPrepareDialog(id, dialog)
-//        when (id) {
-//            CUSTOM_DIALOG_ID -> {
-//                ListDir(currFolder)
-//            }
-//        }
-//    }
 
-//    fun ListDir(f: File) {
-//        upButton.isEnabled = !f.equals(root)
-//        currFolder = f
-//        folder.text = f.path
-//        var files = f.listFiles()
-//
-//        for (file: File in files) {
-//            fileList.add(file.path)
-//        }
-//        var directoryList =
-//            ArrayAdapter<String>(this@PlayActivity, android.R.layout.simple_list_item_1, fileList)
-//        dialogList.adapter = directoryList
-
-//    }
-//        dialogList.setOnItemClickListener{adapterView, view, position, l ->
-//            run {
-//                var selected = File(fileList.get(position))
-//            }
-//        }
-//        dialog.setContentView(R.id.dialog)
-
-//        setListAdapter(
-//            ArrayAdapter<String>(
-//                this,
-//                android.R.layout.simple_list_item_1, myList
-//            )
-//        )
-//    }
-//
-//    fun onListItemClick(
-//        l: ListView?,
-//        v: View?,
-//        position: Int,
-//        id: Long
-//    ) {
-//        dirList.setOnItemClickListener{l: AdapterView<*>, v: View, position: Int, id: Long ->
-//            val temp_file = File(file, myList.get(position))
-//        }
-//
-////            .onListItemClick(l, v, position, id)
-//        val temp_file = File(file, myList.get(position))
-//        if (!temp_file.isFile) {
-//            file = File(file, myList.get(position))
-//            val list: Array<File> = file.listFiles()
-//            myList.clear()
-//            for (i in list.indices) {
-//                myList.add(list[i].name)
-//            }
-//            Toast.makeText(
-//                ApplicationProvider.getApplicationContext(),
-//                file.toString(),
-//                Toast.LENGTH_LONG
-//            ).show()
-//            setListAdapter(
-//                ArrayAdapter<String>(
-//                    this,
-//                    android.R.layout.simple_list_item_1, myList
-//                )
-//            )
-//        }
-//    }
 
     private fun setListAdapter(arrayAdapter: ArrayAdapter<String>) {
 
@@ -182,13 +103,8 @@ class PlayActivity : AppCompatActivityWithMenu(), Runnable {
                 if (isChecked) {
                     Toast.makeText(this@PlayActivity, playActivitychoice, Toast.LENGTH_SHORT).show()
                     if (playActivitychoice != "") {
-                        mediaPlayer.setDataSource(
-                            this@PlayActivity, Uri.fromFile(
-                                File(
-                                    playActivitychoice
-                                )
-                            )
-                        )
+                        var ch = playActivitychoice
+                        mediaPlayer.setDataSource(this@PlayActivity, Uri.fromFile(File(playActivitychoice)))
                         mediaPlayer.prepareAsync()
                         mediaPlayer.setOnPreparedListener {
                             mediaPlayer.start()

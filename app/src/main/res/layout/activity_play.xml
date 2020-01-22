@@ -44,11 +44,11 @@
         android:layout_height="wrap_content"
         android:text="Select file"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/toggleButtonPlayId"
-        app:layout_constraintHorizontal_bias="0.384"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.881" />
+        app:layout_constraintVertical_bias="0.183" />
 
     <ToggleButton
         android:id="@+id/toggleButtonPlayId"
@@ -60,7 +60,7 @@
         android:textOn=""
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/stopPlayButtonId"
-        app:layout_constraintHorizontal_bias="0.79"
+        app:layout_constraintHorizontal_bias="0.553"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.883" />
@@ -69,13 +69,13 @@
         android:id="@+id/stopPlayButtonId"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginEnd="68dp"
+        android:layout_marginEnd="116dp"
         android:background="@drawable/ic_stop"
         android:text=""
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.878" />
+        app:layout_constraintVertical_bias="0.883" />
 
     <SeekBar
         android:id="@+id/seekBar"

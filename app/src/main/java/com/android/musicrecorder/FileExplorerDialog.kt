@@ -15,6 +15,7 @@ class FileExplorerDialog : AppCompatDialogFragment() {
     val CUSTOM_DIALOG_ID: Int = 0
     lateinit var currFolder: File
     var fileList = arrayOf<String>()
+    var filePaths = arrayOf<String>()
     var root = File(Environment.getExternalStorageDirectory().toString())
     var choice = String()
 //    val root_sd = Environment.getExternalStorageDirectory().toString() +"/Music"
@@ -61,8 +62,8 @@ class FileExplorerDialog : AppCompatDialogFragment() {
 //            {
 //                builder.show()
 //            }
-            choice = fileList[which]
-            PlayActivity.playActivitychoice= choice as String
+            choice = filePaths[which]
+            PlayActivity.playActivitychoice = choice
             Toast.makeText(context, "$choice is clicked", Toast.LENGTH_SHORT).show()
         }
 //        builder.setOnItemSelectedListener(dialog, which ->
@@ -95,7 +96,11 @@ class FileExplorerDialog : AppCompatDialogFragment() {
 //        folder.text = f.path
         var files = f.listFiles()
         for (file: File in files) {
-            if (file.extension == "3gp") fileList += file.name
+            if (file.extension == "3gp")
+            {
+                filePaths += file.absolutePath
+                fileList += file.name
+            }
             else println("not")
 
         }

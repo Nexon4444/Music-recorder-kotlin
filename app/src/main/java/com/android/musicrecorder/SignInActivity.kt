@@ -79,7 +79,7 @@ class SignInActivity : AppCompatActivity() {
                     .addOnCompleteListener(this@SignInActivity) { task ->
                         if (task.isSuccessful) {
                             val intToHome =
-                                Intent(this@SignInActivity, MainActivity::class.java)
+                                Intent(this@SignInActivity, RecordActivity::class.java)
                             startActivity(intToHome)
                         } else {
                             Toast.makeText(

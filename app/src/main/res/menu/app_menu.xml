@@ -14,11 +14,6 @@
         android:title="Play"
         android:showAsAction="always"></item>
     <item
-        android:id="@+id/editId"
-        android:icon="@drawable/ic_edit"
-        android:title="Edit"
-        android:showAsAction="always"></item>
-    <item
         android:id="@+id/menuId"
         android:icon="@drawable/ic_menu"
         android:title="Menu"
