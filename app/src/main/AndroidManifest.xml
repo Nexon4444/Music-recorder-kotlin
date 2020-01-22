@@ -13,9 +13,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity
             android:name=".AppCompatActivityWithMenu"
-            android:noHistory="true"/>
+            android:noHistory="true" />
         <activity
             android:name=".EditActivity"
             android:noHistory="true" />
@@ -24,6 +25,7 @@
             android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.ALL_APPS" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -32,6 +34,7 @@
             android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.ALL_APPS" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -46,6 +49,7 @@
             android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

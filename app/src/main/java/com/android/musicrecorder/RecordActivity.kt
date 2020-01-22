@@ -1,61 +1,30 @@
 package com.android.musicrecorder
 
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.media.MediaPlayer
 import android.media.MediaRecorder
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.Environment
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
+import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.record_activity.*
 import java.io.File
-import java.util.*
+import java.time.LocalDateTime
 
 
-class RecordActivity : AppCompatActivityWithMenu
-    () {
-    var savePath = ""
+class RecordActivity : AppCompatActivityWithMenu() {
+    lateinit var savePath : File
     val mediaRecorder = MediaRecorder()
     val mediaPlayer = MediaPlayer()
     val REQUEST_PERMISSION_CODE = 1
     var recordingNow = false
-//
-//    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-//        val inflater = MenuInflater(this@RecordActivity)
-//        invalidateOptionsMenu()
-//        inflater.inflate(R.menu.app_menu, menu)
-//
-//        return true
-//    }
-//
-//    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-//        when (item?.itemId) {
-//
-//            R.id.recordId -> {
-//                val intent = Intent(this, RecordActivity::class.java)
-//                startActivity(intent)
-//            }
-//
-//            R.id.editId -> {
-//                val intent = Intent(this, EditActivity::class.java)
-//                startActivity(intent)
-//            }
-//
-//            R.id.playId -> {
-//                val intent = Intent(this, PlayActivity::class.java)
-//                startActivity(intent)
-//            }
-//        }
-//        return true
-//
-//    }
+    var setRecorder = true
+
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.record_activity)
@@ -70,16 +39,19 @@ class RecordActivity : AppCompatActivityWithMenu
             run {
                 if (isChecked) {
                     if (!recordingNow) {
-                        recordingNow = true
-//                            toggleButtonRecordId.isEnabled
-//                            savePath = Environment.getExternalStorageDirectory().absolutePath + "/" + UUID.randomUUID().toString() + "_audio_record.3gp"
-                        savePath =
-                            Environment.getExternalStorageDirectory().absolutePath + "/" + "test.3gp"
-                        setupMediaRecorder()
-
                         try {
-                            mediaRecorder.prepare()
+                        recordingNow = true
+                        if (setRecorder) {
+                            savePath = File(Environment.getExternalStorageDirectory().absolutePath + "/test3.3gp")
+//                            savePath = Environment.getExternalStorageDirectory().absolutePath + "/recording_" + LocalDateTime.now().toString() + ".3gp"
+//                            createDirIfNotExist(Environment.getExternalStorageDirectory().absolutePath)
+                            setupMediaRecorder()
+                            setRecorder = false
                             mediaRecorder.start()
+//                            mediaRecorder.prepare()
+                        } else {
+                            mediaRecorder.resume()
+                        }
                         } catch (e: Exception) {
                             e.printStackTrace()
                         }
@@ -93,31 +65,45 @@ class RecordActivity : AppCompatActivityWithMenu
 
                     } else {
                         recordingNow = false
-                        mediaRecorder.stop()
-                        mediaRecorder.release()
-                        stopButtonId.setEnabled(false)
-                        playButtonId.setEnabled(true)
+                        try {
+                            mediaRecorder.pause()
+                        } catch (stopException: RuntimeException) { //handle cleanup here
+                        }
                     }
                 }
             }
 
         }
+
         stopButtonId.setOnClickListener {
+            recordingNow = false
             toggleButtonRecordId.isChecked = false
             playButtonId.isEnabled = true
-            println(mediaRecorder.toString())
+//            println(mediaRecorder.toString())
             try {
                 mediaRecorder.stop()
             } catch (stopException: RuntimeException) { //handle cleanup here
             }
-            mediaRecorder.release()
+            mediaRecorder.reset()
+            setRecorder = true
+            Toast.makeText(
+                this@RecordActivity,
+                "Saving... to " + savePath,
+                Toast.LENGTH_SHORT
+            )
+                .show()
+            stopButtonId.isEnabled = false
+
         }
+
         playButtonId.setOnClickListener {
-            mediaPlayer.setDataSource(this@RecordActivity, Uri.fromFile(File(savePath)))
+            mediaPlayer.setDataSource(this@RecordActivity, Uri.fromFile(savePath))
             mediaPlayer.prepareAsync()
             mediaPlayer.setOnPreparedListener {
                 mediaPlayer.start()
             }
+            val audioSessionId: Int = mediaPlayer.getAudioSessionId()
+            if (audioSessionId != -1) blast.setAudioSessionId(audioSessionId)
 
 //                mediaPlayer.setAud
 //                mediaPlayer.start()
@@ -127,11 +113,15 @@ class RecordActivity : AppCompatActivityWithMenu
     }
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun setupMediaRecorder() {
         mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC)
         mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP)
         mediaRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_WB)
         mediaRecorder.setOutputFile(savePath)
+//        mediaRecorder.setOut
+        mediaRecorder.prepare()
+//        println(mediaRecorder.outpu)
     }
 
     private fun requestPermission() {
@@ -167,7 +157,6 @@ class RecordActivity : AppCompatActivityWithMenu
     }
 
 
-
     fun checkPermissionFromDevice(): Boolean {
         val writeExternalStorageResult = ContextCompat.checkSelfPermission(
             this@RecordActivity,
@@ -187,8 +176,19 @@ class RecordActivity : AppCompatActivityWithMenu
                 (recordAudioResult == PackageManager.PERMISSION_GRANTED)
     }
 
-
+    fun createDirIfNotExist(path: String) {
+        var f = File(path)
+        var success = true
+        if (!f.exists()) {
+            success = f.mkdirs()
+        }
+        if (success) { // Do something on success
+        } else { // Do something else on failure
+        }
+    }
 }
+
+
 //https://www.javahelps.com/2019/04/android-list-external-storage-files.html
 //https://www.youtube.com/watch?v=-eFoX4K59qM
 

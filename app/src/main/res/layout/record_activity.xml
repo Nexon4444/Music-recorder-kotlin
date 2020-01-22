@@ -46,5 +46,17 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.804" />
 
+    <com.gauravk.audiovisualizer.visualizer.BlastVisualizer
+        android:id="@+id/blast"
+        android:layout_width="263dp"
+        android:layout_height="230dp"
+        app:avColor="@color/av_dark_blue"
+        app:avDensity="0.8"
+        app:avSpeed="normal"
+        app:avType="fill"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
