@@ -51,11 +51,11 @@ class FileExplorerDialog : AppCompatDialogFragment() {
         }
 //        var listener = DialogInterface.OnClickListener
         listDir(root)
-        val onClickListener = DialogInterface.OnClickListener{ dialogInterface: DialogInterface, position: Int ->
-            run {
-                listDir(File(fileList[position]))
-            }
-        }
+//        val onClickListener = DialogInterface.OnClickListener{ dialogInterface: DialogInterface, position: Int ->
+//            run {
+//                listDir(File(fileList[position]))
+//            }
+//        }
 
         builder.setItems(fileList) {dialog, which ->
 //            if (File(fileList[which]).isDirectory)
@@ -63,7 +63,7 @@ class FileExplorerDialog : AppCompatDialogFragment() {
 //                builder.show()
 //            }
             choice = filePaths[which]
-            PlayActivity.playActivitychoice = choice
+            PlayActivity2.playActivitychoice = choice
             Toast.makeText(context, "$choice is clicked", Toast.LENGTH_SHORT).show()
         }
 //        builder.setOnItemSelectedListener(dialog, which ->

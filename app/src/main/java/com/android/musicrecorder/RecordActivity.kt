@@ -14,6 +14,7 @@ import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.record_activity.*
 import java.io.File
 import java.time.LocalDateTime
+import java.time.LocalTime
 
 
 class RecordActivity : AppCompatActivityWithMenu() {
@@ -42,9 +43,10 @@ class RecordActivity : AppCompatActivityWithMenu() {
                         try {
                         recordingNow = true
                         if (setRecorder) {
-                            savePath = File(Environment.getExternalStorageDirectory().absolutePath + "/test3.3gp")
-//                            savePath = Environment.getExternalStorageDirectory().absolutePath + "/recording_" + LocalDateTime.now().toString() + ".3gp"
-//                            createDirIfNotExist(Environment.getExternalStorageDirectory().absolutePath)
+                            var filename =  "/recording" + LocalTime.now().second.toString().replace(".","")+".3gp"
+//                            savePath = File(Environment.getExternalStorageDirectory().absolutePath + "/test3.3gp")
+                            savePath = File(Environment.getExternalStorageDirectory().absolutePath + filename)
+                            createDirIfNotExist(Environment.getExternalStorageDirectory().absolutePath)
                             setupMediaRecorder()
                             setRecorder = false
                             mediaRecorder.start()
@@ -98,12 +100,13 @@ class RecordActivity : AppCompatActivityWithMenu() {
 
         playButtonId.setOnClickListener {
             mediaPlayer.setDataSource(this@RecordActivity, Uri.fromFile(savePath))
-            mediaPlayer.prepareAsync()
             mediaPlayer.setOnPreparedListener {
                 mediaPlayer.start()
             }
+            mediaPlayer.prepareAsync()
+
             val audioSessionId: Int = mediaPlayer.getAudioSessionId()
-            if (audioSessionId != -1) blast.setAudioSessionId(audioSessionId)
+            if (audioSessionId != -1) blast0.setAudioSessionId(audioSessionId)
 
 //                mediaPlayer.setAud
 //                mediaPlayer.start()

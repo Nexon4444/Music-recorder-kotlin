@@ -15,6 +15,16 @@
         android:theme="@style/AppTheme">
 
         <activity
+            android:name=".PlayActivity2"
+            android:noHistory="true">
+            <intent-filter>
+                <action android:name="android.intent.action.ALL_APPS" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+
+        <activity
             android:name=".AppCompatActivityWithMenu"
             android:noHistory="true" />
         <activity

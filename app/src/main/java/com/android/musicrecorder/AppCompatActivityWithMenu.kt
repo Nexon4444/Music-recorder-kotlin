@@ -18,7 +18,6 @@ open class AppCompatActivityWithMenu : AppCompatActivity() {
     }
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
-
             R.id.recordId -> {
                 val intent = Intent(this, RecordActivity::class.java)
                 startActivity(intent)
@@ -30,7 +29,7 @@ open class AppCompatActivityWithMenu : AppCompatActivity() {
             }
 
             R.id.playId -> {
-                val intent = Intent(this, PlayActivity::class.java)
+                val intent = Intent(this, PlayActivity2::class.java)
                 startActivity(intent)
             }
         }

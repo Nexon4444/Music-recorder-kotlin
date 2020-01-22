@@ -13,6 +13,8 @@ import android.widget.Toast
 import com.google.firebase.FirebaseApp
 import com.google.firebase.FirebaseOptions
 import kotlinx.android.synthetic.main.activity_play.*
+import kotlinx.android.synthetic.main.activity_play.blast
+import kotlinx.android.synthetic.main.record_activity.*
 import java.io.File
 import java.io.FileInputStream
 import kotlin.concurrent.thread
@@ -33,14 +35,13 @@ class PlayActivity : AppCompatActivityWithMenu(), Runnable {
     }
 
     override fun run() {
-        var currentPosition: Int = 0
+        var currentPosition = 0
         var soundTotal: Int = mediaPlayer.getDuration()
         seekBar.setMax(soundTotal)
-        val audioSessionId: Int = mediaPlayer.getAudioSessionId()
-        if (audioSessionId != -1)
-            mediaPlayer.audioSessionId = audioSessionId
+
         while (mediaPlayer != null && currentPosition < soundTotal) {
             Thread.sleep(300)
+            println("playing!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
             currentPosition = mediaPlayer.currentPosition
             seekBar.setProgress(currentPosition)
         }
@@ -58,8 +59,7 @@ class PlayActivity : AppCompatActivityWithMenu(), Runnable {
         root = File(Environment.getExternalStorageDirectory().absolutePath)
         currFolder = root
 //        val runnable = SimpleRunnable()
-        val thread1 = Thread{run()}
-        thread1.start()
+
 
 //        val serviceAccount = FileInputStream("path/to/serviceAccountKey.json")
 
@@ -92,7 +92,6 @@ class PlayActivity : AppCompatActivityWithMenu(), Runnable {
     }
 
 
-
     private fun setListAdapter(arrayAdapter: ArrayAdapter<String>) {
 
     }
@@ -104,12 +103,22 @@ class PlayActivity : AppCompatActivityWithMenu(), Runnable {
                     Toast.makeText(this@PlayActivity, playActivitychoice, Toast.LENGTH_SHORT).show()
                     if (playActivitychoice != "") {
                         var ch = playActivitychoice
-                        mediaPlayer.setDataSource(this@PlayActivity, Uri.fromFile(File(playActivitychoice)))
-                        mediaPlayer.prepareAsync()
+                        var uri = Uri.fromFile(File(playActivitychoice))
+                        mediaPlayer.setDataSource(this@PlayActivity, uri)
+
+//                        mediaPlayer.prepare()
+
                         mediaPlayer.setOnPreparedListener {
                             mediaPlayer.start()
                             blast.animate()
+                            val audioSessionId: Int = mediaPlayer.getAudioSessionId()
+                            if (audioSessionId != -1) blast.setAudioSessionId(audioSessionId)
+                            val thread1 = Thread { run() }
+                            thread1.start()
+
+//                                mediaPlayer.audioSessionId = audioSessionId
                         }
+                        mediaPlayer.prepareAsync()
                     } else {
                         Toast.makeText(this@PlayActivity, "Load file!", Toast.LENGTH_SHORT).show()
                     }
