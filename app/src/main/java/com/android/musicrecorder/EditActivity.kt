@@ -1,6 +1,5 @@
 package com.android.musicrecorder
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
 class EditActivity : AppCompatActivityWithMenu() {

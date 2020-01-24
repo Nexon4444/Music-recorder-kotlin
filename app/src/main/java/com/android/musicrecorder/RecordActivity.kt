@@ -190,30 +190,3 @@ class RecordActivity : AppCompatActivityWithMenu() {
         }
     }
 }
-
-
-//https://www.javahelps.com/2019/04/android-list-external-storage-files.html
-//https://www.youtube.com/watch?v=-eFoX4K59qM
-
-//            toggleButtonRecordId.setOnClickListener { view ->
-//                Toast.makeText(this@RecordActivity, "recording now", Toast.LENGTH_SHORT).show()
-//                if (!recordingNow) {
-//                    recordingNow = true
-//                    toggleButtonRecordId.isEnabled
-//                    savePath =
-//                        Environment.getExternalStorageDirectory().absolutePath + "/" + UUID.randomUUID().toString() + "_audio_record.3gp"
-//                    try {
-//                        mediaRecorder.prepare()
-//                        mediaRecorder.start()
-//                    } catch (e: Exception) {
-//                        e.printStackTrace()
-//                    }
-//                    stopButtonId.setEnabled(true)
-//                    Toast.makeText(this@RecordActivity, "Recording...", Toast.LENGTH_SHORT).show()
-//                } else {
-//                    recordingNow = false
-//                    mediaRecorder.stop()
-//                    stopButtonId.setEnabled(false)
-//                    playButtonId.setEnabled(true)
-//                }
-//            }

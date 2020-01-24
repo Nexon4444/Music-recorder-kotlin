@@ -1,23 +1,17 @@
 package com.android.musicrecorder
 
-//import androidx.test.core.app.ApplicationProvider.getApplicationContext
 
 import android.app.Dialog
 import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
-import android.widget.ArrayAdapter
 import android.widget.SeekBar
 import android.widget.Toast
-import com.google.firebase.FirebaseApp
-import com.google.firebase.FirebaseOptions
 import kotlinx.android.synthetic.main.activity_play.*
 import kotlinx.android.synthetic.main.activity_play.blast
 import kotlinx.android.synthetic.main.record_activity.*
 import java.io.File
-import java.io.FileInputStream
-import kotlin.concurrent.thread
 
 
 class PlayActivity : AppCompatActivityWithMenu(), Runnable {
@@ -91,10 +85,6 @@ class PlayActivity : AppCompatActivityWithMenu(), Runnable {
         return dialog
     }
 
-
-    private fun setListAdapter(arrayAdapter: ArrayAdapter<String>) {
-
-    }
 
     private fun setupListeners() {
         toggleButtonPlayId.setOnCheckedChangeListener { _, isChecked ->

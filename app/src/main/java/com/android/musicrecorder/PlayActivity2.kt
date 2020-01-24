@@ -107,7 +107,6 @@ class PlayActivity2 : AppCompatActivityWithMenu(), Runnable {
 
     override fun onCreateDialog(id: Int): Dialog? {
         lateinit var dialog: Dialog
-//        Dialog(this@PlayActivity)
 
         var fileExplorerDialog = FileExplorerDialog()
         fileExplorerDialog.run {
@@ -121,10 +120,7 @@ class PlayActivity2 : AppCompatActivityWithMenu(), Runnable {
                 clearMediaPlayer()
                 seekBar.progress = 0
                 wasPlaying = true
-                //                fab.setImageDrawable(ContextCompat.getDrawable(PlayActivity2.this, android.R.drawable.ic_media_play));
             }
-
-
             if (!wasPlaying) {
 
                 if (mediaPlayer == null) {
@@ -134,15 +130,6 @@ class PlayActivity2 : AppCompatActivityWithMenu(), Runnable {
                     blast.animate()
                 }
 
-                //                fab.setImageDrawable(ContextCompat.getDrawable(PlayActivity2.this, android.R.drawable.ic_media_pause));
-
-//                val descriptor = assets.openFd("suits.mp3")
-//                mediaPlayer!!.setDataSource(
-//                    descriptor.fileDescriptor,
-//                    descriptor.startOffset,
-//                    descriptor.length
-//                )
-//                descriptor.close()
                 val chice = playActivitychoice
                 var check = File(playActivitychoice)
                 mediaPlayer!!.setDataSource(this@PlayActivity2,

@@ -16,7 +16,6 @@ import kotlinx.android.synthetic.main.sign_up_activity.*
 class SignUpActivity : AppCompatActivity() {
     lateinit var email: EditText
     lateinit var password: EditText
-    lateinit var tvSignIn: EditText
     lateinit var signUpBtn: Button
     lateinit var firebaseAuth: FirebaseAuth
 
@@ -79,7 +78,6 @@ class SignUpActivity : AppCompatActivity() {
 
 
         }
-//        tvSignIn.setOnClickListener
 
     }
 }
